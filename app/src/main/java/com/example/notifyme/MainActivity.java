@@ -7,6 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         button_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Update the notification
+
             }
         });
         button_cancel.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateNotification() {
         setNotificationButtonState(false, false, true);
+        Bitmap androidImage = BitmapFactory.decodeResource(getResources(),R.drawable.hawkeye);
+        NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
+        notifyBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                .bigPicture(androidImage)
+                .setBigContentTitle("Notification Updated!"));
+        mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
     }
     public void cancelNotification() {
 
